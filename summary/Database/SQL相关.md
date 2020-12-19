@@ -321,3 +321,18 @@ create index <index> on <table> (<column>,...)
 
 ## 窗口函数
 
+```mysql
+select <function>() over ( partition by <column> order by rows between <frame_start> and <frame_end>) from <table>;
+/*
+over指定函数的执行范围，over后如果什么都不写，意味着窗口包含满足where条件的所有行
+partition by 指定窗口中的行按照哪些字段分组，窗口函数在不同的分组上分别执行
+order by 指定窗口中的行按照哪些字段进行排序
+frame_start 和 frame_end 用来指定窗口范围 使用以下关键字：current row 边界是当前行、unbounded preceding 边界是分区中第一行、unbounded following 边界是分区中最后一行、expr preceding  边界是当前行减去expr的值、expr following 边界是当前行加上expr的值；
+有些函数不管有没有frame子句窗口固定
+row_number 按照分组后的排序返回序号	对于相同的顺序，随机排序，不会产生相同的序号，例如 1,2,3,4
+rank 对于相同的顺序，序号相同，会跳过之后的位次，例如 1,1,1,4
+dense_rank 对于相同的顺序，序号相同，不跳过之后的位次，例如 1,1,2,3
+
+*/
+```
+
